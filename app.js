@@ -25,7 +25,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(multer({dest:'./uploads',
+app.use(multer({
   fileFilter: function(req,file,cb){
     if(file.mimetype !== 'text/csv'){
       return cb({
