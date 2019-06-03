@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mkdirp = require('mkdirp');
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -22,6 +23,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+mkdirp('uploads');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
