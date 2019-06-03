@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    table
+        each row,index in result
+            if index==0
+                tr(class='bg-red')
+                    each val in row
+                        td= val
+            else
+                tr(class="bg-gray")
+                    each val in row
+                        td= val
