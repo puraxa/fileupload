@@ -60,9 +60,9 @@ router.get('/', (req,res,next)=> {
 router.post('/',async(req,res,next)=>{
     try{
         let exists = await checkFileExists('./test_files/'+req.body.filename+'.csv');
-        console.log(exists);
         if(!exists){
-            let response = writeToFile('./test_files/'+req.body.filename+'.csv',req.body.rows);
+            let response = await writeToFile('./test_files/'+req.body.filename+'.csv',req.body.rows);
+            console.log(response);
             res.redirect('/');
         }
     }catch(err){
