@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    form(action="/seed" method="post" enctype="multipart/form-data")
+        label(for='file')= "Select upload file: "
+        input(type="number", name="rows")
+        br
+        input(type="text", name="filename")
+        input(type="submit" value="Upload")
