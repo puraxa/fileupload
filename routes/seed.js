@@ -69,11 +69,6 @@ const checkReqBody = (body) => {
 }
 
 router.get('/', (req,res,next)=> {
-    // let writableStream = fs.createWriteStream('./test_files/test31231.txt');
-    // writableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n');
-    // for(let i = 0; i < 1000000; i++ ){
-    //     writableStream.write(generateRow());
-    // }
     res.render('seed');
 })
 
@@ -89,28 +84,6 @@ router.post('/',async(req,res,next)=>{
     }catch(err){
         next(err);
     }
-        // checkFileExists('./test_files/'+ req.body.filename)
-        //     .then(() => {})
-        //     .catch(err => next(err));
-    // fs.access('./test_files/'+ req.body.filename, (err)=> {
-    //     if(err){
-    //         let writableStream = fs.createWriteStream('./test_files/'+req.body.filename);
-    //         writableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n');
-    //         for(let i = 0; i < req.body.rows-2; i++ ){
-    //             writableStream.write(generateRow());
-    //         }
-    //         writableStream.end(generateRow());
-    //         res.redirect('/');
-    //     }
-    //     next({message: 'file already exists'});
-    //     console.log('file already exists');
-    // })
-    // console.log(req.body);
-    // let writableStream = fs.createWriteStream('./test_files/'+req.body.filename);
-    // writableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n');
-    // for(let i = 0; i < req.body.rows; i++ ){
-    //     writableStream.write(generateRow());
-    // }
 })
 
 module.exports = router;
