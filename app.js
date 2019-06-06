@@ -18,7 +18,7 @@ process.env.PORT = 5000;
 var indexRouter = require('./routes/index');
 var uploadRouter = require('./routes/uploadfile');
 var showfileRouter = require('./routes/showfile');
-var seedRouter = require('./routes/seed');
+var seedRouter = require('./routes/seed').router;
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
