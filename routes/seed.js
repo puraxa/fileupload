@@ -61,6 +61,9 @@ const checkReqBody = (body) => {
         if(body.rows < 1){
             reject({status:400,message: 'We have to generate at least 1 row!'});
         }
+        if(body.rows > 5000000){
+            reject({status:400,message:'Cant generate more than 5 milion rows!'});
+        }
         resolve();
     })
 }

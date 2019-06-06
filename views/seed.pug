@@ -10,4 +10,5 @@ block content
                 label(for='filename')= "Select name of file(without extension): "
                 input(type="text", name="filename", class="form-control")
                 br
-                input(type="submit" value="Upload" class="btn btn-outline-primary")
+                input(type="submit" value="Upload" class="btn btn-outline-primary", onclick="show()")
+        div(class="spinner-border margin-auto", style="display:none",id="spinner")
