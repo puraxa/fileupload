@@ -7,4 +7,5 @@ block content
       div(class="form-group")
         div(class="custom-file")
           label(for='file', class="custom-file-label")= "Select upload file: "
-          input(type="file", name="file", class="custom-file-input", onchange="this.form.submit()")
+          input(type="file", name="file", class="custom-file-input", onchange="this.form.submit();show()")
+    div(class="spinner-border margin-auto", style="display:none",id="spinner")
