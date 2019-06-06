@@ -1,9 +1,10 @@
 extends layout
 
 block content
-  h1= "Upload file"
-  form(action="/uploadfile" method="post" enctype="multipart/form-data")
-    label(for='file')= "Select upload file: "
-    input(type="file", name="file")
-    br
-    input(type="submit" value="Upload")
+  div(class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6 padding-top margin-auto")
+    h1= "Upload file"
+    form(action="/uploadfile" method="post" enctype="multipart/form-data")
+      div(class="form-group")
+        div(class="custom-file")
+          label(for='file', class="custom-file-label")= "Select upload file: "
+          input(type="file", name="file", class="custom-file-input", onchange="this.form.submit()")

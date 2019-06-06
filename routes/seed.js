@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var util = require('util');
 
 let generateRow = () => {
     let row = '';
@@ -29,23 +30,39 @@ let checkFileExists = (filepath) => {
     })
 }
 
-let writeToFile = (filepath,numberOfRows) => {
-    let writableStream = fs.createWriteStream(filepath);
-    return new Promise(function(resolve, reject){
-        writableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n',err => {
-            reject(err);
-        });
-        for(let i = 0; i < numberOfRows-2; i++ ){
-            writableStream.write(generateRow(),err => {
-                reject(err);
-            });
+let writeToFile = async(filepath,numberOfRows) => {
+    try{
+        let writeableStream = fs.createWriteStream(filepath)
+                                .on('error', err =>{
+                                    close();
+                                    throw err;
+                                })
+                                .on('finish',()=>{
+                                    Promise.resolve();
+                                });
+        writeableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n');
+        for(let i = 0; i < numberOfRows-1;i++){
+            writeableStream.write(generateRow());
         }
-        writableStream.end(generateRow(),err => {
-            reject(err);
-        });
-        resolve('succesfully written to file!');
+        writeableStream.end(generateRow());
+    }catch(err){
+        throw err;
+    } 
+}
+
+const checkReqBody = (body) => {
+    return new Promise((resolve,reject)=>{
+        if(!body){
+            reject({status:400,message:"Request empty"})
+        }
+        if(!body.filename || !body.rows){
+            reject({status:400,message:"One or more fields is empty!"});
+        }
+        if(body.rows < 1){
+            reject({status:400,message: 'We have to generate at least 1 row!'});
+        }
+        resolve();
     })
-            
 }
 
 router.get('/', (req,res,next)=> {
@@ -59,6 +76,7 @@ router.get('/', (req,res,next)=> {
 
 router.post('/',async(req,res,next)=>{
     try{
+        let body = await checkReqBody(req.body);
         let exists = await checkFileExists('./test_files/'+req.body.filename+'.csv');
         if(!exists){
             let response = await writeToFile('./test_files/'+req.body.filename+'.csv',req.body.rows);

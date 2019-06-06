@@ -2,17 +2,30 @@ body {
   width: 70%;
   margin: auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #F0F0F0;
 }
 
-a {
-  color: #00B7FF;
+a{
+  display: inline-block;
+  padding: 14px 16px;
+  color: white;
 }
-table {
-  margin-top: 100px;
-  border-collapse: collapse;
-  margin-bottom: 100px;
+a:hover {
+  text-decoration: none;
+  color: white;
 }
 
 td {
   border: solid 1px;
+}
+
+.bg-gray {
+  background-color: gray;
+}
+
+.margin-auto {
+  margin: auto;
+}
+.padding-top {
+  padding-top: 100px;
 }
