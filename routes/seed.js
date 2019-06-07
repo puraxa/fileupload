@@ -81,4 +81,4 @@ router.post('/',async(req,res,next)=>{
     }
 })
 
-module.exports = {router, writeToFile,checkReqBody};
+module.exports = {router, asyncWrite,checkReqBody};

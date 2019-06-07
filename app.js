@@ -13,7 +13,6 @@ var storage = multer.diskStorage({
     cb(null,file.fieldname + '-' + Date.now()+ '.csv');
   }
 })
-process.env.PORT = 5000;
 
 var indexRouter = require('./routes/index');
 var uploadRouter = require('./routes/uploadfile');
