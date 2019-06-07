@@ -19,54 +19,47 @@ let generateRow = () => {
     return row+'\n';
 }
 
-let checkFileExists = (filepath) => {
-    return new Promise(function(resolve,reject){
+let checkFileExists = util.promisify((filepath,callback) => {
         fs.access(filepath,(err)=>{
             if(err){
-                resolve(false);
+                callback(null,'file can be created');
             }
-            reject({message:'file already exists'});
+            callback({status:400,message:'file already exists'});
         })
-    })
-}
+});
 
-let writeToFile = async(filepath,numberOfRows) => {
-    try{
+let writeToFile = (filepath,numberOfRows,callback) => {
         let writeableStream = fs.createWriteStream(filepath)
                                 .on('error', err =>{
-                                    close();
-                                    throw err;
+                                    callback(err);
                                 })
                                 .on('finish',()=>{
-                                    Promise.resolve();
+                                    callback(null,'done');
                                 });
         writeableStream.write('"Sell", "List", "Living", "Rooms", "Beds", "Baths", "Age", "Acres", "Taxes"\n');
         for(let i = 0; i < numberOfRows-1;i++){
             writeableStream.write(generateRow());
         }
-        writeableStream.end(generateRow());
-    }catch(err){
-        throw err;
-    } 
+        writeableStream.end(generateRow(),()=> 'done');
 }
 
-const checkReqBody = (body) => {
-    return new Promise((resolve,reject)=>{
-        if(!body){
-            reject({status:400,message:"Request empty"})
-        }
-        if(!body.filename || !body.rows){
-            reject({status:400,message:"One or more fields is empty!"});
-        }
-        if(body.rows < 1){
-            reject({status:400,message: 'We have to generate at least 1 row!'});
-        }
-        if(body.rows > 5000000){
-            reject({status:400,message:'Cant generate more than 5 milion rows!'});
-        }
-        resolve();
-    })
-}
+let asyncWrite = util.promisify(writeToFile);
+
+const checkReqBody = util.promisify((body, callback) => {        
+    if(!body){
+        callback({status:400,message:"Request empty"})
+    }
+    if(!body.filename || !body.rows){
+        callback({status:400,message:"One or more fields is empty!"});
+    }
+    if(body.rows < 1){
+        callback({status:400,message: 'We have to generate at least 1 row!'});
+    }
+    if(body.rows > 5000000){
+        callback({status:400,message:'Cant generate more than 5 milion rows!'});
+    }
+    callback(null, 'body is ok');
+})
 
 router.get('/', (req,res,next)=> {
     res.render('seed');
@@ -75,9 +68,11 @@ router.get('/', (req,res,next)=> {
 router.post('/',async(req,res,next)=>{
     try{
         let body = await checkReqBody(req.body);
+        console.log(body);
         let exists = await checkFileExists('./test_files/'+req.body.filename+'.csv');
-        if(!exists){
-            let response = await writeToFile('./test_files/'+req.body.filename+'.csv',req.body.rows);
+        console.log(exists);
+        if(exists){
+            let response = await asyncWrite('./test_files/'+req.body.filename+'.csv',req.body.rows);
             console.log(response);
             res.redirect('/');
         }
