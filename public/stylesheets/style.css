@@ -1,18 +1,7 @@
 body {
-  width: 70%;
   margin: auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #F0F0F0;
-}
-
-a{
-  display: inline-block;
-  padding: 14px 16px;
-  color: white;
-}
-a:hover {
-  text-decoration: none;
-  color: white;
 }
 
 td {
@@ -32,4 +21,7 @@ td {
 .margin-spinner {
   margin-top: 25px;
   margin-left: 25px;
+}
+.text-white {
+  color: white;
 }

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+     div(class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6 padding-top margin-auto")
+        form(action="/login" method="post" enctype="multipart/form-data")
+            div(class="form-group")
+                label(for='password')= "Email/username: "
+                input(type="text", name="email", class="form-control", required)
+                br
+                label(for='password')= "Password: "
+                input(type="password", name="password", class="form-control", required)
+                br
+                input(type="submit" value="Login" class="btn btn-outline-primary")

@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script.
@@ -9,10 +10,21 @@ html
         document.getElementById('spinner').style.display = "block";
       }
   body
+    nav(class="navbar navbar-expand-sm navbar-dark bg-primary")
+      div(class="container")
+        button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#id" aria-controls="id" aria-expanded="false" aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        div(class="collapse navbar-collapse" id="id")
+          ul(class="navbar-nav mr-auto")
+            li(class="nav-item")
+              a(class="nav-link" href="/")="Index"
+            li(class="nav-item")
+              a(class="nav-link" href="/seed")="Generate"
+            li(class="nav-item")
+              a(class="nav-link" href="/register")="Register"
+            li(class="nav-item")
+              a(class="nav-link" href="/login")="Login"
     div(class="container")
-      nav(class="bg-primary")
-        a(href="/")="Index"
-        a(href="/seed")="Generate file"
       div(class="row")
         block content
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")

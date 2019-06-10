@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mkdirp = require('mkdirp');
 var multer = require('multer');
+var dotenv = require('dotenv').config();
 var storage = multer.diskStorage({
   destination: function(req, file, cb){
     cb(null, __dirname + '/uploads');
@@ -18,6 +19,9 @@ var indexRouter = require('./routes/index');
 var uploadRouter = require('./routes/uploadfile');
 var showfileRouter = require('./routes/showfile');
 var seedRouter = require('./routes/seed').router;
+var registerRouter = require('./routes/register');
+var loginRouter = require('./routes/login');
+
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,6 +50,8 @@ app.use('/', indexRouter);
 app.use('/uploadfile', uploadRouter);
 app.use('/showfile',showfileRouter);
 app.use('/seed', seedRouter);
+app.use('/register', registerRouter);
+app.use('/login',loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

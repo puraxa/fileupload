@@ -13,3 +13,62 @@ block content
                         tbody(class="")
                             each val in row
                                 td= val
+        nav(aria-label="Page navigation")
+            ul(class="pagination justify-content-center")
+                if currentPage==1
+                    li(class="page-item disabled")
+                        a(href="#" class="page-link" tabindex="-1")="Previous"
+                    li(class="page-item active")
+                        a(href="#" class="page-link")="1"
+                    li(class="page-item")
+                        a(href="/showfile?page=2" class="page-link")="2"
+                    li(class="page-item")
+                        a(href="/showfile?page=3" class="page-link")="3"
+                    li(class="page-item")
+                        a(href="/showfile?page="+pages class="page-link")="Last"
+                    li(class="page-item")
+                        a(href="/showfile?page=2" class="page-link")="Next"
+                else if currentPage == pages
+                    li(class="page-item")
+                        a(href="/showfile?page="+(pages-1) class="page-link")="Previous"
+                    li(class="page-item")
+                        a(href="/showfile?page=1" class="page-link")="First"
+                    li(class="page-item")
+                        a(href="/showfile?page="+(pages-2) class="page-link")=pages-2
+                    li(class="page-item")
+                        a(href="/showfile?page="+(pages-1) class="page-link")=pages-1
+                    li(class="page-item active")
+                        a(href="#" class="page-link")=pages
+                    li(class="page-item disabled")
+                        a(href="#" class="page-link" tabindex="-1")="Next"
+                else
+                    li(class="page-item")
+                        a(href="/showfile?page="+(currentPage-1) class="page-link")="Previous"
+                    li(class="page-item")
+                        a(href="/showfile?page=1" class="page-link")="First"
+                    li(class="page-item")
+                        a(href="/showfile?page="+(currentPage-1) class="page-link")=currentPage-1
+                    li(class="page-item active")
+                        a(href="/showfile?page="+currentPage class="page-link")=currentPage
+                    li(class="page-item")
+                        a(href="/showfile?page="+(currentPage+1) class="page-link")=currentPage+1
+                    li(class="page-item")
+                        a(href="/showfile?page="+pages class="page-link")="Last"                    
+                    li(class="page-item")
+                        a(href="/showfile?page="+(currentPage+1) class="page-link")="Next"
+                //- while n < lines
+                //-     li(class="page-item")
+                //-         a(href="#" class="page-link")=n++
+
+                //- li(class="page-item")
+                //-     a(href="#" class="page-link" aria-label="Previous")
+                //-         span(aria-hidden="true")="$laquo;"
+                //- li(class="page-item")
+                //-     a(href="#" class="page-link")="1"
+                //- li(class="page-item")
+                //-     a(href="#" class="page-link")="2"
+                //- li(class="page-item")
+                //-     a(href="#" class="page-link")="3"
+                //- li(class="page-item")
+                //-     a(href="#" class="page-link")
+            p= lines
