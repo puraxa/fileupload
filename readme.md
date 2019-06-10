@@ -16,7 +16,7 @@ Generated csv files are stored in
 You will need to provide parameters for connecting to database  
 ```DB_host=/host/ DB_user=/user/ DB_password=/password/ DB_db=/database npm start```  
 Or you can crate .env file like 
-```DB_host=/host/  
-DB_user=/username/  
-DB_password=/password/  
-DB_db=/database/```
+```DB_host=/host/  ```
+```DB_user=/username/  ```
+```DB_password=/password/  ```
+```DB_db=/database/```
