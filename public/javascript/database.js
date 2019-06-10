@@ -9,11 +9,13 @@ const options = {
 
  
 const connection = mysql.createConnection(options);
+
 connection.query("CREATE TABLE IF NOT EXISTS `users` (`userID` int(10) NOT NULL AUTO_INCREMENT,`fullname` varchar(100) NOT NULL,`email` varchar(100) NOT NULL,`username` varchar(100) NOT NULL,`password` varchar(255) NOT NULL,PRIMARY KEY (`userID`))",(err,res)=>{
     if(err){
-        console.log(err);
+        console.error(err.sqlMessage);
+        process.exit();
     }
-    console.log(res);
+    //console.log(res);
 })
 
 module.exports = connection;
