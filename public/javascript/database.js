@@ -1,9 +1,9 @@
 var mysql = require('mysql2');
 
 const options = {
-    host: 'localhost',
+    host: process.env.DB_host,
     user: process.env.DB_user,
-    database: 'logintest',
+    database: process.env.DB_db,
     password: process.env.DB_password
 }
 
