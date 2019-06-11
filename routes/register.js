@@ -47,7 +47,7 @@ router.post('/', async(req,res,next)=>{
         console.log(bodyCheck);
         await checkDatabase(req.body.email,req.body.username);
         await addUser(req.body);
-        res.end();
+        res.redirect('/');
     } catch(err){
         next(err);
     }
