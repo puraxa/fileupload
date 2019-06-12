@@ -44,7 +44,15 @@ const verifyPw = async(inputPw, dbPw) => {
 }
 
 router.get('/',(req,res,next)=>{
-    res.render('login');
+    jwt.verify(req.cookies.token,'$!GMOPHE_#T@M#MH#_T',function(err,decoded){
+        if(err){
+            console.log(err);
+            res.render('login');
+        }else{
+            console.log(decoded);
+            res.redirect('/');
+        }
+    })
 });
 
 router.post('/',async(req,res,next)=>{
@@ -55,7 +63,9 @@ router.post('/',async(req,res,next)=>{
         const checkPw = await verifyPw(req.body.password,user[0].password);
         console.log(checkPw);
         let token = jwt.sign({id: user[0].userID, fullname: user[0].fullname,username: user[0].username, email: user[0].email},'$!GMOPHE_#T@M#MH#_T');
-        res.send(JSON.stringify({token: token}));
+        //res.send(JSON.stringify({token: token}));
+        res.cookie('token',token);
+        res.redirect('/');
         // const emailSearch = await query(`SELECT * FROM users WHERE email='${req.body.email}'`);
         // const usernameSearch;
         // if(emailSearch.length == 0){

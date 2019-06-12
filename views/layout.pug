@@ -17,13 +17,18 @@ html
         div(class="collapse navbar-collapse" id="id")
           ul(class="navbar-nav mr-auto")
             li(class="nav-item")
-              a(class="nav-link" href="/")="Index"
+              a(class="nav-link" href="/")="Upload file"
             li(class="nav-item")
               a(class="nav-link" href="/seed")="Generate"
-            li(class="nav-item")
-              a(class="nav-link" href="/register")="Register"
-            li(class="nav-item")
-              a(class="nav-link" href="/login")="Login"
+            if !logged
+              li(class="nav-item")
+                a(class="nav-link" href="/register")="Register"
+              li(class="nav-item")
+                a(class="nav-link" href="/login")="Login"
+          if logged    
+            ul(class="navbar-nav")
+              li(class="nav-item")
+                a(class="nav-link" href="/logout")="Logout"
     div(class="container")
       div(class="row")
         block content

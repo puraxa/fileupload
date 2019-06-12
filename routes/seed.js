@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var util = require('util');
+var checkToken = require('../public/javascript/checkToken');
 
 let generateRow = () => {
     let row = '';
@@ -61,8 +62,20 @@ const checkReqBody = util.promisify((body, callback) => {
     callback(null, 'body is ok');
 })
 
-router.get('/', (req,res,next)=> {
-    res.render('seed');
+router.get('/', async(req,res,next)=> {
+    try{
+        if(!req.cookies.token){
+          res.render('notLogged');
+        }
+        else{    
+          let nesto = await checkToken(req.cookies.token);
+          console.log(nesto);
+          console.log(req.cookies.token);
+          res.render('seed',{logged: true});
+        }
+    }catch(err){
+      next(err);
+    }
 })
 
 router.post('/',async(req,res,next)=>{

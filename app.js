@@ -21,6 +21,7 @@ var showfileRouter = require('./routes/showfile');
 var seedRouter = require('./routes/seed').router;
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 
 var app = express();
 // view engine setup
@@ -52,6 +53,7 @@ app.use('/showfile',showfileRouter);
 app.use('/seed', seedRouter);
 app.use('/register', registerRouter);
 app.use('/login',loginRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

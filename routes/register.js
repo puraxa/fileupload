@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('../public/javascript/database');
 var util = require('util');
+var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 var query = util.promisify(mysql.query).bind(mysql);
 const checkReqBody = util.promisify((body,callback) =>{
@@ -38,7 +39,15 @@ const addUser = async(body) =>{
 }
 
 router.get('/',async(req,res,next)=>{
-    res.render('register');
+    jwt.verify(req.cookies.token,'$!GMOPHE_#T@M#MH#_T',function(err,decoded){
+        if(err){
+            console.log(err);
+            res.render('register');
+        }else{
+            console.log(decoded);
+            res.redirect('/');
+        }
+    })
 });
 
 router.post('/', async(req,res,next)=>{
